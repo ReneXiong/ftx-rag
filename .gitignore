@@ -1,0 +1,27 @@
+# Credentials
+.env
+.env.*
+!.env.example
+
+# Corpus and everything derived from it — court filings name individual creditors
+data/
+*.pdf
+*.graphml
+*.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Logs, editors, OS
+*.log
+.idea/
+.vscode/
+.DS_Store

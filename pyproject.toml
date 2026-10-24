@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ftx-rag"
+version = "0.1.0"
+description = "Graph RAG over the FTX bankruptcy court docket"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "asyncpg>=0.29",
+    "docling>=2.91",
+    "httpx>=0.27",
+    "lightrag-hku>=1.5",
+    "numpy>=1.26",
+    "psycopg2-binary>=2.9",
+    "pypdf>=5.0",
+    "python-dotenv>=1.0",
+    "rich>=13.0",
+    "sentence-transformers>=3.0",
+    "torch>=2.4",
+    "typer>=0.12",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+ftx-rag = "ftx_rag.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ftx_rag"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008"]  # typer.Option in defaults is the typer idiom
+
+[tool.ruff.lint.per-file-ignores]
+# Prompt templates are kept verbatim, long lines included.
+"src/ftx_rag/{classify,extract}.py" = ["E501"]
